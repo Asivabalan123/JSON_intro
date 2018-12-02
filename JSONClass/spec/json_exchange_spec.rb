@@ -1,6 +1,7 @@
 describe "Testing the exchange rates" do
   before(:all) do
-    @exchange_rates = ParseJson.new('json_exchange_rates.json')
+      @api_key = ENV['FIXER_API_KEY']
+      @exchange_rates = ParseJson.new(HTTParty::get("http://data.fixer.io/api/latest?access_key=#{@api_key}").body)
   end
 
   it "should be a hash" do
@@ -16,7 +17,7 @@ describe "Testing the exchange rates" do
   end
 
   it "should have 31 currencys in rates" do
-    expect(@exchange_rates.get_rate.length).to eq 31
+    expect(@exchange_rates.get_rate.length).to eq 168
   end
 
   it "should return an array" do
@@ -29,7 +30,7 @@ describe "Testing the exchange rates" do
 
 
   it "checks all the exchange values is a type integer" do
-    expect(@exchange_rates.get_integer).to eq true
+    expect(@exchange_rates.get_integer).to eq false
   end
 
 end

@@ -7,7 +7,7 @@ class ParseJson
 
 
   def initialize(json_file)
-    @json_file = JSON.parse(File.read(json_file))
+    @json_file = JSON.parse(json_file)
   end
 
   def get_base
